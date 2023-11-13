@@ -39,14 +39,29 @@ connection.commit()
 #     "(NULL, 'Fabio', 9.9),(NULL, 'Giuliana', 6.9)"
 # )
 
-# Com cuidado com SQL injection
+# # Com cuidado com SQL injection
+# sql = (f"INSERT INTO {TABLE_NAME} (name, weight)"
+#        "VALUES"
+#        "(?,?)"
+#        )
+#
+# # cursor.execute(sql, ["Ana", 7])
+# cursor.executemany(sql, (["Ana", 7], ["Maria", 3], ["Beto", 4]))
+
+
+# Com cuidado com SQL injection - Dict
 sql = (f"INSERT INTO {TABLE_NAME} (name, weight)"
        "VALUES"
-       "(?,?)"
+       "(:nome,:peso)"
        )
 
-# cursor.execute(sql, ["Ana", 7])
-cursor.executemany(sql, (["Ana", 7], ["Maria", 3], ["Beto", 4]))
+# cursor.execute(sql, {"nome": "Ana", "peso": 4})
+cursor.executemany(sql, (
+    {"nome": "Ana", "peso": 4},
+    {"nome": "Maria", "peso": 2},
+    {"nome": "Zé", "peso": 5}
+))
+
 
 connection.commit()
 
