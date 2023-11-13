@@ -3,9 +3,8 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).parent
 DB_NAME = "db.sqlite3"
-DB_FILE = ROOT_DIR/DB_NAME
+DB_FILE = ROOT_DIR / DB_NAME
 TABLE_NAME = "customers"
-
 
 connection = sqlite3.connect(DB_FILE)
 cursor = connection.cursor()
@@ -34,11 +33,19 @@ connection.commit()
 
 # Inserir dados
 
-cursor.execute(
-    f"INSERT INTO {TABLE_NAME} (id, name, weight)"
-    "VALUES"
-    "(NULL, 'Fabio', 9.9),(NULL, 'Giuliana', 6.9)"
-)
+# cursor.execute(
+#     f"INSERT INTO {TABLE_NAME} (id, name, weight)"
+#     "VALUES"
+#     "(NULL, 'Fabio', 9.9),(NULL, 'Giuliana', 6.9)"
+# )
+
+# Com cuidado com SQL injection
+sql = (f"INSERT INTO {TABLE_NAME} (name, weight)"
+       "VALUES"
+       "(?,?)"
+       )
+
+cursor.execute(sql, ["Ana", 7])
 
 connection.commit()
 
