@@ -45,7 +45,8 @@ sql = (f"INSERT INTO {TABLE_NAME} (name, weight)"
        "(?,?)"
        )
 
-cursor.execute(sql, ["Ana", 7])
+# cursor.execute(sql, ["Ana", 7])
+cursor.executemany(sql, (["Ana", 7], ["Maria", 3], ["Beto", 4]))
 
 connection.commit()
 
