@@ -65,5 +65,25 @@ cursor.executemany(sql, (
 
 connection.commit()
 
-cursor.close()
-connection.close()
+if __name__ == "__main__":
+    print(sql)
+
+    cursor.execute(f"DELETE FROM {TABLE_NAME} WHERE ID = 2")
+
+    cursor.execute(f"SELECT * FROM {TABLE_NAME}")
+
+    for row in cursor.fetchall():
+        _id, name, weight = row
+        print(_id, name, weight)
+
+    cursor.execute(f"UPDATE {TABLE_NAME} SET name='Outro' WHERE ID = 1")
+
+    cursor.execute(f"SELECT * FROM {TABLE_NAME}")
+
+    print("------")
+    for row in cursor.fetchall():
+        _id, name, weight = row
+        print(_id, name, weight)
+
+    cursor.close()
+    connection.close()
