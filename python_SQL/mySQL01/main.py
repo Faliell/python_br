@@ -8,5 +8,5 @@ connection = pymysql.connect(
 )
 with connection:
     with connection.cursor() as cursor:
-        #SQL
+        # SQL
         print(cursor)
